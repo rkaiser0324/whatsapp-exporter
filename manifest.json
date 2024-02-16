@@ -1,0 +1,21 @@
+{
+    "name": "WhatsApp Exporter",
+    "version": "0.0.1",
+    "manifest_version": 2,
+    "description": "Export a group members to CSV",
+    "homepage_url": "https://blog.echothis.com",
+    "background": {
+      "scripts": [
+        "background.js"
+      ],
+      "persistent": true
+    },
+    "browser_action": {
+      "default_title": "WhatsApp Exporter"
+    },
+    "permissions": [
+        "https://*/*",
+        "http://*/*",
+      "tabs"
+    ]
+  }
