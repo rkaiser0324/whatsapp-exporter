@@ -21,11 +21,31 @@
 
     let rows = memberList.split(', ');
 
-    if (rows.length < 2) {
+    let members = [];
+
+    rows.forEach((el, i) => {
+
+        if (el.match(/\d+/)) {
+            let segments = el.match(/^(\+(\d+) )(.+)$/);
+
+            if (segments) {
+                let prefix = segments[1];
+
+                // Drop ()- and space
+                let num = segments[3].replace(/[\(\)-]/g, "").replace(/ /g, "");
+
+                members.push(prefix + num);
+            }
+        }
+    });
+
+    //console.log(members);
+
+    if (members.length == 0) {
         document.getElementById('exporterLog').innerText = "No members found for \"" + groupName + "\".  Wait until the names show under the title and try again."
     }
     else {
-        let csvContent = "data:text/csv;charset=utf-8," + rows.join("\n");
+        let csvContent = "data:text/csv;charset=utf-8," + members.join("\n");
 
         var encodedUri = encodeURI(csvContent);
         var link = document.createElement("a");
@@ -35,10 +55,8 @@
 
         link.click(); // This will download the data file named "my_data.csv".
 
-        document.getElementById('exporterLog').innerText = `Downloaded ${rows.length} members for group "${groupName}".`
+        document.getElementById('exporterLog').innerText = `Downloaded ${members.length} members for group "${groupName}".`
 
     }
-
-    //debugger
 
 })();
